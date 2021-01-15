@@ -17,16 +17,21 @@
   }"
 ></editor> -->
 
-<!-- <div class="container">
-
-  <mat-tab-group mat-align-tabs="center">
-    <mat-tab label="First">Content 1</mat-tab>
-    <mat-tab label="Second">Content 2</mat-tab>
-    <mat-tab label="Third">Content 3</mat-tab>
+<div class="container">
+  <mat-tab-group #tabGroup mat-align-tabs="center" (selectedTabChange)="handleTabChange($event)">
+    <mat-tab label="First">
+      <editor [init]="init" *ngIf="activeTabIndex === 0"></editor>
+    </mat-tab>
+    <mat-tab label="Second">
+      <editor [init]="init" *ngIf="activeTabIndex === 1"></editor>
+    </mat-tab>
+    <mat-tab label="Third">
+      <editor [init]="init" *ngIf="activeTabIndex === 2"></editor>
+    </mat-tab>
   </mat-tab-group>
-</div> -->
+</div>
 
-<h1>TinyMCE 5 Angular Demo</h1>
-<editor
-  [init]="init"
-></editor>
+<!-- <h1>TinyMCE 5 Angular Demo</h1> -->
+<!-- <editor [init]="init"></editor> -->
+
+<!-- *ngIf="activeTabIndex===0" -->

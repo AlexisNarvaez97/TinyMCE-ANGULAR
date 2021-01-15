@@ -1,12 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { MatTabChangeEvent } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit {
+
+  @ViewChild('tabGroup') public tabGroup: any;
+  // public apiKey = apiKey;
+  public activeTabIndex: number | undefined = undefined;
+  public firstEditorValue = '';
+  public secondEditorValue = '';
+
   public init = {};
 
   title = 'dummie-project';
@@ -16,9 +24,14 @@ export class AppComponent implements OnInit {
   // es_MX
   // english default
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private cdRef: ChangeDetectorRef) {}
 
   ngOnInit(): void {
+
+    // console.log(this.tabGroup);
+
+    // his.activeTabIndex = this.tabGroup.selectedIndex;
+
     this.init = {
       selector: 'textarea',
       plugins: [
@@ -38,4 +51,15 @@ export class AppComponent implements OnInit {
         ' removeformat',
     };
   }
+
+  public handleTabChange(e: MatTabChangeEvent): void {
+    this.activeTabIndex = e.index;
+  }
+
+  public ngAfterViewInit(): void {
+    this.activeTabIndex = this.tabGroup.selectedIndex;
+    this.cdRef.detectChanges();
+    // console.log(this.tabGroup.selectedIndex);
+  }
+
 }
